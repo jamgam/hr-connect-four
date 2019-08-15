@@ -1,12 +1,16 @@
 import React from 'react';
+import ConnectFour from './connectFour.js';
+import Board from './board.jsx';
+
 
 class App extends React.Component {
   constructor(props){
-    super(props)
+    super(props);
   }
   render() {
     return(
-      <div>REACT</div>
+      <Board 
+        boardSize={this.props.boardSize} />
     )
   }
 }

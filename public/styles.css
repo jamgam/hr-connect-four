@@ -1,0 +1,17 @@
+.row {
+  display: flex;
+}
+
+.square {
+  font-size: 50px;
+  margin-top: -1px;
+  margin-left: -1px;
+  width: 80px;
+  height: 80px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  vertical-align: center;
+  justify-content: center;
+}
