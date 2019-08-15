@@ -1,5 +1,4 @@
 import React from 'react';
-import ConnectFour from './connectFour.js';
 import Board from './board.jsx';
 
 

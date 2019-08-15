@@ -2,19 +2,6 @@ import React from 'react';
 import Row from './row.jsx'
 import ConnectFour from './connectFour.js';
 
-// const Board = props => {
-//   let rows = [];
-//   for(let i = 0; i < props.rows; i++) {
-//     rows.push(<Row columns={props.columns} />);
-//   }
-
-  // return(
-  //   <div className="board">
-  //     {rows}
-  //   </div>
-  // )
-// }
-
 class Board extends React.Component {
   constructor(props) {4
     super(props)
@@ -23,27 +10,26 @@ class Board extends React.Component {
     let board = new ConnectFour(rows, columns);
     this.state = {
       board,
-      player: 'X'
+      player: 'X',
     }
+    let message = `It is ${this.state.player}'s turn!`
+    this.state.message = message;
     this.makeMove = this.makeMove.bind(this);
+    this.changeMessage = this.changeMessage.bind(this);
   }
   
   makeMove(row, column) {
     let player = this.state.player;
     let moveMade = this.state.board.makeMove(column, this.state.player);
-    let moveRow = moveMade[0];
-    let moveColumn = moveMade[1];
-
+    
     if(moveMade) {
+      let moveRow = moveMade[0];
+      let moveColumn = moveMade[1];
       if(player === 'X') {
         player = 'O'
       } else {
         player = 'X'
       }
-      // console.log('major: ', this.state.board.isWinningMajorDiag(moveMade[0], moveMade[1]));
-      // console.log('minor: ', this.state.board.isWinningMinorDiag(moveMade[0], moveMade[1]));
-      // console.log('colum: ', this.state.board.isWinningColumn(moveMade[1]));
-      // console.log('row: ', this.state.board.isWinningRow(moveMade[0]));
       console.log(this.state.board.isWinningMove(moveRow, moveColumn));
     };
 
@@ -52,9 +38,15 @@ class Board extends React.Component {
       board: this.state.board,
       player
     });
+
+    this.changeMessage(`It is ${player}'s Turn!`);
   }
 
-
+  changeMessage(message) {
+    this.setState({
+      message
+    })
+  }
 
   render() {
     let rows = [];
@@ -71,7 +63,7 @@ class Board extends React.Component {
     return(
       <div className="board">
         {rows}
-        <div>It is {this.state.player}'s turn!'</div>
+        {/* <div>{this.state.message}</div> */}
       </div>
     )
   }

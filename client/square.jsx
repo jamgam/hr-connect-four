@@ -8,11 +8,19 @@ const Square = props => {
     e.preventDefault();
     props.makeMove(props.row, props.column);
   };
+  var style = {backgroundColor: 'white'};
+
+  if(player === 'X') {
+    style.backgroundColor = 'black'
+  } else if (player === 'O') {
+    style.backgroundColor = 'red'
+  }
 
   return(
     <div 
+      style={style}
       onClick={onClick}
-      className="square">{player}</div>
+      className="square"></div>
   )
 }
 
