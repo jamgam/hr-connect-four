@@ -16,6 +16,16 @@ class Board extends React.Component {
     this.state.message = message;
     this.makeMove = this.makeMove.bind(this);
     this.changeMessage = this.changeMessage.bind(this);
+    this.newGame = this.newGame.bind(this);
+  }
+
+  newGame() {
+    let rows = this.props.boardSize.rows;
+    let columns = this.props.boardSize.columns;
+    let newBoard = new ConnectFour(rows, columns)
+    this.setState({
+      board: newBoard
+    })
   }
   
   makeMove(row, column) {
@@ -25,14 +35,29 @@ class Board extends React.Component {
     if(moveMade) {
       let moveRow = moveMade[0];
       let moveColumn = moveMade[1];
+      if (this.state.board.isWinningMove(moveRow, moveColumn)) {
+        let color;
+        if(player === 'O') {
+          color = 'RED'
+        } else {
+          color = 'BLACK'
+        }
+        this.setState({
+          board: this.state.board,
+          player
+        });
+
+        setTimeout(()=>{
+          alert(`${color} player has WON!`)
+          this.newGame();
+        }, 0);
+      };
       if(player === 'X') {
         player = 'O'
       } else {
         player = 'X'
       }
-      console.log(this.state.board.isWinningMove(moveRow, moveColumn));
     };
-
 
     this.setState({
       board: this.state.board,
@@ -63,7 +88,9 @@ class Board extends React.Component {
     return(
       <div className="board">
         {rows}
-        {/* <div>{this.state.message}</div> */}
+        <button 
+          onClick={this.newGame}
+          className="reset">Reset</button>
       </div>
     )
   }

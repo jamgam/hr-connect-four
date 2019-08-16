@@ -1,5 +1,6 @@
 class ConnectFour {
   constructor(rows = 6, columns = 7, obj) {
+    this.numPieces = 0;
     this.rows = rows;
     this.columns = columns;
     this.board = [];
@@ -21,11 +22,16 @@ class ConnectFour {
       } else {
         this.board[row][column] = player;
         moveMade = [row, column];
+        this.numPieces++;
         break;
       }
     }
     return moveMade;
 
+  }
+
+  isTie() {
+    return (this.numPieces === (this.rows * this.columns));
   }
 
   isWinningMove(row, column) {
@@ -40,14 +46,13 @@ class ConnectFour {
       start.r--;
       start.c--;
     }
-    console.log('start: ',start);
 
-    for(let i = 0; this.board[start.r] !== undefined; i++) {
+    while(start.r < this.rows && start.c < this.columns) {
       arr.push(this.board[start.r][start.c])
       start.r++;
       start.c++;
     }
-    console.log('arr: ', arr);
+
     return this.isFourInARow(arr);
   }
 
@@ -59,11 +64,12 @@ class ConnectFour {
       start.c++;
     }
 
-    for(let i = 0; this.board[start.r] !== undefined; i++) {
+    while(start.r < this.rows && start.c >= 0) {
       arr.push(this.board[start.r][start.c])
       start.r++;
       start.c--;
     }
+
     return this.isFourInARow(arr);
   }
 
